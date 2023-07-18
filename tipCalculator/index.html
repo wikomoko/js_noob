@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tip Calculator</title>
     <style>
-        *{
+        * {
             padding: 0;
             margin: 0;
             font-family: sans-serif;
         }
-        .container{
+
+        .container {
             display: flex;
             height: 100vh;
             justify-content: center;
             align-items: center;
         }
-        .card{
+
+        .card {
             width: 300px;
             border-top-left-radius: 0px;
             border-top-right-radius: 0px;
@@ -28,131 +31,214 @@
             padding: 24px;
             position: relative;
         }
-        .title{
+
+        .title {
             text-align: center;
             margin-bottom: 24px;
         }
-        .input_bill{
+
+        .input_bill {
             font-size: 24px;
             margin: 0px 0px 24px 0px;
             text-align: end;
         }
-        .input_bill_label{
+
+        .input_bill_label {
             padding-top: 24px;
         }
-        .input_percent{
+
+        .input_percent {
             font-size: 24px;
             width: 50px;
             text-align: end;
         }
-        .row{
+
+        .row {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-      .btn-check{
-        margin: 24px 0px 24px 0px;
-        background-color: rgb(80, 185, 255);
-        color: white;
-        width: 100%;
-        border-radius: 8px;
-        border: 1px solid grey;
-        font-size: 18px;
-        height: 40px;
-        transition: 0.4s;
-      }
-      .btn-check:hover{
-        background-color: rgb(50, 119, 165);
-      }
-      .btn-check:active{
-        background-color: red;
-      }
-      .tip_result{
-        text-align: end;
-      }
-      .box{
-        box-shadow: 0px -1px 3px grey;
-        background-color: white;
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
-        border: none;
-        height: 50px;
-        width: 50%;
-        position: absolute;
-        top:-50px;
-        left: 0px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .split{
-        box-shadow: 0px -1px 3px grey;
-        background-color: rgb(241, 241, 241);
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
-        border: none;
-        height: 50px;
-        width: 50%;
-        position: absolute;
-        top:-50px;
-        right: 0px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+
+        .btn-check {
+            margin: 24px 0px 24px 0px;
+            background-color: rgb(80, 185, 255);
+            color: white;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid grey;
+            font-size: 18px;
+            height: 40px;
+            transition: 0.4s;
+        }
+
+        .btn-check:hover {
+            background-color: rgb(50, 119, 165);
+        }
+
+        .btn-check:active {
+            background-color: red;
+        }
+
+        .tip_result {
+            text-align: end;
+        }
+
+        .box {
+            cursor: pointer;
+            box-shadow: 0px -1px 3px grey;
+            background-color: white;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            border: none;
+            height: 50px;
+            width: 50%;
+            position: absolute;
+            top: -50px;
+            left: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .split {
+            cursor: pointer;
+            box-shadow: 0px -1px 3px grey;
+            background-color: rgb(241, 241, 241);
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            border: none;
+            height: 50px;
+            width: 50%;
+            position: absolute;
+            top: -50px;
+            right: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tips_session {
+            display: block;
+        }
+        .split_session{
+            display: none;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="card">
-            <div class="box">
+
+            <div class="box" onclick="show_tips_session()" id="tips_tab">
                 <p>Tips</p>
             </div>
-            <!-- <div class="split">
+            <div class="split" onclick="show_split_session()" id="split_tab">
                 <p>Split</p>
-            </div> -->
-            <h2 class="title">Tip Calculator</h2>
-            <div id="info"></div>
-            <label for="input_bill" class="input_bill_label">Your bill here</label>
-            <input class="input_bill" id="input_bill" type="number">
-            <div class="row">
-                <div class="col">Amount of tips</div>
-                <div class="col">
-                    <input class="input_percent" id="input_tip" type="text" maxlength="2"> %
+            </div>
+
+            <div class="tips_session" id="tips_session">
+                <h2 class="title">Tip Calculator</h2>
+                <div id="info"></div>
+                <label for="input_bill" class="input_bill_label">Your bill here</label>
+                <input class="input_bill" id="input_bill" type="number">
+                <div class="row">
+                    <div class="col">Amount of tips</div>
+                    <div class="col">
+                        <input class="input_percent" id="input_tip" type="text" maxlength="2"> %
+                    </div>
+                </div>
+                <button class="btn-check" onclick="calculate_tips()">Calculate</button>
+                <div class="result" id="result">
                 </div>
             </div>
-            <button class="btn-check" onclick="calculate_tips()">Calculate</button>
-            <div class="result" id="result">
+
+            <div class="split_session" id="split_session">
+                <h2 class="title">Split Bill</h2>
+                <label for="input_bill_split" class="input_bill_label">Your bill here</label>
+                <input class="input_bill" id="input_bill_split" type="number">
+                <div class="row">
+                    <div class="col">People to Share</div>
+                    <div class="col">
+                        <input class="input_percent" id="input_people" type="text" maxlength="2">
+                    </div>
+                </div>
+                <button class="btn-check" onclick="calculate_split()">Split Bill</button>
+                <div class="result_split" id="result_split">
+                </div>
             </div>
+
         </div>
     </div>
 
     <script>
-        function calculate_tips(){
+
+        function show_tips_session(){
+            const tips_session = document.getElementById("tips_session")
+            const split_session = document.getElementById("split_session")
+            const tips_tab = document.getElementById("tips_tab")
+            const split_tab = document.getElementById("split_tab")
+
+            tips_session.style.display="block"
+            split_session.style.display="none"
+
+            tips_tab.style.backgroundColor="white"
+            split_tab.style.backgroundColor="rgb("+241+","+241+","+241+")"
+        }
+
+        function show_split_session(){
+            const tips_session = document.getElementById("tips_session")
+            const split_session = document.getElementById("split_session")
+            const tips_tab = document.getElementById("tips_tab")
+            const split_tab = document.getElementById("split_tab")
+
+            tips_session.style.display="none"
+            split_session.style.display="block"
+
+            tips_tab.style.backgroundColor="rgb("+241+","+241+","+241+")"
+            split_tab.style.backgroundColor="white"
+        }
+        
+        function calculate_tips() {
             const bill = document.getElementById("input_bill").value
             const tips = document.getElementById("input_tip").value
-           
-            if(isNaN(tips)){
+
+            if (isNaN(tips)) {
                 notNumber("tips")
-            }else{
-                const info = document.getElementById("info").style.display="none"
-                let result = (bill*tips)/100
+            } else {
+                const info = document.getElementById("info").style.display = "none"
+                let result = (bill * tips) / 100
                 show_tips(result)
             }
         }
 
-        function notNumber(atr){
-            const info = document.getElementById("info")
-            info.innerHTML="<p style='text-align:center;color:red;'>"+atr+" is not number</p>"
-            info.style.display="block"
+        function calculate_split() {
+            const bill = document.getElementById("input_bill_split").value
+            const poeple = document.getElementById("input_people").value
+            const result = bill/poeple 
+            show_split(result)
         }
 
-        function show_tips(result){
+        function notNumber(atr) {
+            const info = document.getElementById("info")
+            info.innerHTML = "<p style='text-align:center;color:red;'>" + atr + " is not number</p>"
+            info.style.display = "block"
+        }
+
+        function show_tips(result) {
             let resul_pad = document.getElementById("result")
-            resul_pad.innerHTML=""
-            resul_pad.innerHTML+="<p style='font-size:18px;'>The tip is </p>"
-            resul_pad.innerHTML+="<p class='tip_result' style='font-size:24px;'>"+result+"</hp>"
+            resul_pad.innerHTML = ""
+            resul_pad.innerHTML += "<p style='font-size:18px;'>The tip is </p>"
+            resul_pad.innerHTML += "<p class='tip_result' style='font-size:24px;'>" + result + "</hp>"
+        }
+   
+        function show_split(result){
+            const result_split = document.getElementById("result_split")
+            result_split.innerHTML=""
+            result_split.innerHTML += "<p style='font-size:18px;'>Bill per Person </p>"
+            result_split.innerHTML += "<p class='tip_result' style='font-size:24px;'>" + result + "</hp>"
         }
     </script>
 </body>
+
 </html>
